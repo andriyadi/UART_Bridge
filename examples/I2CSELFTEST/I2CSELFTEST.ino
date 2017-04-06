@@ -3,7 +3,9 @@
 #include <string.h>
 #include <SPI.h>
 
-SC16IS750 i2cuart = SC16IS750(SC16IS750_PROTOCOL_I2C,SC16IS750_ADDRESS_AD);
+//SC16IS750 i2cuart = SC16IS750(SC16IS750_PROTOCOL_I2C,SC16IS750_ADDRESS_AD);
+
+SC16IS750 i2cUART = SC16IS750(SC16IS750_PROTOCOL_I2C,SC16IS750_ADDRESS_AA); //to use Sparkfun's SC16IS750 breakout
 
 //Connect TX and RX with a wire and run this sketch
 
@@ -20,14 +22,10 @@ void setup()
         Serial.println("device found");
     }
     Serial.println("start serial communication");
-    
-
-
 };
 
 void loop() 
 {
-   
     i2cuart.write(0x55);
     while(i2cuart.available()==0);
     if (i2cuart.read()!=0x55) {
@@ -36,19 +34,13 @@ void loop()
     }   
     delay(200);
     
-    i2cuart.write(0xAA);
-    while(i2cuart.available()==0);
-    if (i2cuart.read()!=0xAA) {
-        Serial.println("serial communication error");
-        while(1);
-    }   
+    // i2cuart.write(0xAA);
+    // while(i2cuart.available()==0);
+    // if (i2cuart.read()!=0xAA) {
+    //     Serial.println("serial communication error");
+    //     while(1);
+    // }   
     
-    delay(200);
-      
-     
-  
-  
-
-  
+    // delay(200);  
 };
 
