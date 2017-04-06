@@ -130,6 +130,42 @@ class SC16IS750 : public Stream
 		void    ModemPin(uint8_t gpio); //gpio == 0, gpio[7:4] are modem pins, gpio == 1 gpio[7:4] are gpios
 		void    GPIOLatch(uint8_t latch);
         
+        size_t write(const uint8_t *buffer, size_t size);
+        size_t write(const char *str) {
+            if(str == NULL)
+                return 0;
+            return write((const uint8_t *) str, strlen(str));
+        }
+        size_t write(const char *buffer, size_t size) {
+            return write((const uint8_t *) buffer, size);
+        }
+
+        size_t printf(const char * format, ...)  __attribute__ ((format (printf, 2, 3)));
+        size_t print(const __FlashStringHelper *);
+        size_t print(const String &);
+        size_t print(const char[]);
+        size_t print(char);
+        size_t print(unsigned char, int = DEC);
+		size_t print(int, int = DEC);
+		size_t print(unsigned int, int = DEC);
+		size_t print(long, int = DEC);
+		size_t print(unsigned long, int = DEC);
+		size_t print(double, int = 2);
+		size_t print(const Printable&);
+
+		size_t println(const __FlashStringHelper *);
+        size_t println(const String &s);
+        size_t println(const char c[]);
+        size_t println(char);
+		size_t println(unsigned char, int = DEC);
+		size_t println(int, int = DEC);
+		size_t println(unsigned int, int = DEC);
+		size_t println(long, int = DEC);
+		size_t println(unsigned long, int = DEC);
+		size_t println(double, int = 2);
+		size_t println(const Printable&);
+        size_t println(void);
+
     
     private:
         uint8_t device_address_sspin;
@@ -162,6 +198,8 @@ class SC16IS750 : public Stream
 		int 	peek_buf;
 		uint8_t peek_flag;
 		
+		size_t printNumber(unsigned long, uint8_t);
+		size_t printFloat(double, uint8_t);
 };
 
 #endif
